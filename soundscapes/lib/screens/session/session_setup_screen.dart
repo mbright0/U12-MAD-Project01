@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import '../../providers/session_provider.dart';
 import '../../core/database/database_helper.dart';
 import '../../models/blueprint.dart';
+import '../../widgets/ai_suggestion_banner.dart';
+import '../../core/utils/ai_engine.dart';
 import '../blueprints/blueprints_screen.dart';
 import 'session_screen.dart';
 
@@ -179,7 +181,24 @@ class _SessionSetupScreenState extends State<SessionSetupScreen> {
                 onChanged: (val) =>
                     provider.setDurationMinutes(val.toInt()),
               ),
-              const SizedBox(height: 40),
+              const SizedBox(height: 24),
+
+              // AI suggestion banner
+              AISuggestionBanner(
+                mood: provider.mood,
+                taskType: provider.taskType,
+                energyLevel: provider.energyLevel,
+                onApply: () {
+                  final recommended =
+                      AIEngine.recommendDuration(provider.energyLevel);
+                  provider.setDurationMinutes(recommended);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                        content: Text('AI mix applied to your session')),
+                  );
+                },
+              ),
+              const SizedBox(height: 16),
 
               // Start session button
               SizedBox(
