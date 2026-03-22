@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+import '../session/session_view_screen.dart';
+import '../performance/performance_screen.dart';
+import '../settings/settings_screen.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -7,7 +11,10 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen>{
+class _HomeScreenState extends State<HomeScreen> {
+
+  int _currentIndex = 0;
+
   String _statusFilter = 'all';
   String _searchQuery = '';
   final TextEditingController _searchController = TextEditingController();
@@ -18,17 +25,16 @@ class _HomeScreenState extends State<HomeScreen>{
     super.dispose();
   }
 
-  @override
-  Widget build(BuildContext context) {
+  Widget _buildTasksTab() {
     return Scaffold(
       body: SafeArea(
         child: NestedScrollView(
           headerSliverBuilder: (_, __) => [_buildAppBar()],
-          body: _buildBody(),
+          body: _EmptyState(),
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _onFABTapped,
+        onPressed: () {},
         tooltip: 'Create new task',
         child: const Icon(Icons.add_rounded, size: 28),
       ),
@@ -41,6 +47,8 @@ class _HomeScreenState extends State<HomeScreen>{
       snap: true,
       title: Row(
         children: [
+          const Text('🎵', style: TextStyle(fontSize: 22)),
+          const SizedBox(width: 8),
           Text(
             'Tasks',
             style: Theme.of(context)
@@ -124,11 +132,47 @@ class _HomeScreenState extends State<HomeScreen>{
     );
   }
 
-  Widget _buildBody() {
-    return _EmptyState();
-  }
+  @override
+  Widget build(BuildContext context) {
+    final screens = [
+      _buildTasksTab(),
+      const SessionViewScreen(),
+      const PerformanceScreen(),
+      const SettingsScreen(),
+    ];
 
-  void _onFABTapped() {}
+    return Scaffold(
+      body: IndexedStack(
+        index: _currentIndex,
+        children: screens,
+      ),
+      bottomNavigationBar: NavigationBar(
+        selectedIndex: _currentIndex,
+        onDestinationSelected: (index) =>
+            setState(() => _currentIndex = index),
+        destinations: const [
+          NavigationDestination(
+            icon: Icon(Icons.checklist_rounded),
+            label: 'Tasks',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.folder_outlined),
+            selectedIcon: Icon(Icons.folder_rounded),
+            label: 'Sessions',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.bar_chart_rounded),
+            label: 'Stats',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.settings_outlined),
+            selectedIcon: Icon(Icons.settings_rounded),
+            label: 'Settings',
+          ),
+        ],
+      ),
+    );
+  }
 }
 
 class _EmptyState extends StatelessWidget {
