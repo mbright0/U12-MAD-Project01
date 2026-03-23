@@ -9,13 +9,13 @@ class SessionEditScreen extends StatefulWidget {
 
 class _SessionEditScreenState extends State<SessionEditScreen> {
 
-  int _workMin      = 25;
-  int _breakMin     = 5;
+  int _workMin = 25;
+  int _breakMin = 5;
   int _longBreakMin = 25;
 
-  String _selectedMood    = 'focused';
+  String _selectedMood = 'focused';
   String _selectedPreset  = 'rain';
-  int    _energyLevel     = 5;
+  int _energyLevel = 5;
 
   static const List<(String, String)> _moods = [
     ('focused',   '😤 Focused'),
@@ -197,12 +197,10 @@ class _SessionEditScreenState extends State<SessionEditScreen> {
   }
 
   void _onSave() {
-    // TODO: save session config to SharedPreferences — next commit
     Navigator.pop(context);
   }
 
   void _onLaunch() {
-    // TODO: push to SessionScreen with config — next commit
     Navigator.pop(context);
   }
 }
