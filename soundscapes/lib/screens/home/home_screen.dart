@@ -1,10 +1,10 @@
- import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 
-import '../session/session_view_screen.dart';
-import '../performance/performance_screen.dart';
-import '../settings/settings_screen.dart';
 import '../task/task_view_screen.dart';
+import '../session/session_history_screen.dart';
+import '../performance/performance_screen.dart';
 import '../task/task_edit_screen.dart';
+import '../session/session_setup_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -19,9 +19,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final List<Widget> _screens = [
     const TaskViewScreen(),
-    const SessionViewScreen(),
+    const SessionHistoryScreen(),
     const PerformanceScreen(),
-    const SettingsScreen(),
   ];
 
   @override
@@ -31,16 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
         index: _currentIndex,
         children: _screens,
       ),
-      floatingActionButton: _currentIndex == 0
-          ? FloatingActionButton(
-              onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => TaskEditScreen()),
-              ),
-              tooltip: 'Create new task',
-              child: const Icon(Icons.add_rounded, size: 28),
-            )
-          : null,
+      floatingActionButton: _buildFAB(),
       bottomNavigationBar: NavigationBar(
         selectedIndex: _currentIndex,
         onDestinationSelected: (index) =>
@@ -59,13 +49,33 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: Icon(Icons.bar_chart_rounded),
             label: 'Stats',
           ),
-          NavigationDestination(
-            icon: Icon(Icons.settings_outlined),
-            selectedIcon: Icon(Icons.settings_rounded),
-            label: 'Settings',
-          ),
         ],
       ),
     );
+  }
+
+  Widget? _buildFAB() {
+    return switch (_currentIndex) {
+      0 => FloatingActionButton(
+          heroTag: 'task_fab',
+          onPressed: () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => TaskEditScreen()),
+          ),
+          tooltip: 'Create new task',
+          child: const Icon(Icons.add_rounded, size: 28),
+        ),
+      1 => FloatingActionButton(
+          heroTag: 'session_fab',
+          onPressed: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (_) => SessionSetupScreen()),
+          ),
+          tooltip: 'New session',
+          child: const Icon(Icons.play_arrow_rounded, size: 28),
+        ),
+      _ => null,
+    };
   }
 }
