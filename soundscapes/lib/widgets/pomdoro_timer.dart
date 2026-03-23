@@ -107,7 +107,7 @@ class _CirclePainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeWidth = strokeWidth
       ..strokeCap = StrokeCap.round;
-    
+
     const startAngle = -math.pi / 2;
     final sweepAngle = 2 * math.pi * progress;
 
