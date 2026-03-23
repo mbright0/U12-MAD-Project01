@@ -5,11 +5,10 @@ class AppTheme {
   static ThemeData lightTheme = ThemeData(
     useMaterial3: true,
     brightness: Brightness.light,
-    colorScheme: ColorScheme.light(
+    colorScheme: const ColorScheme.light(
       primary: AppColors.primaryLight,
       secondary: AppColors.secondaryLight,
       surface: AppColors.surfaceLight,
-      background: AppColors.backgroundLight,
       error: AppColors.error,
     ),
     scaffoldBackgroundColor: AppColors.backgroundLight,
@@ -19,7 +18,6 @@ class AppTheme {
       backgroundColor: AppColors.backgroundLight,
       foregroundColor: AppColors.textPrimaryLight,
     ),
-    cardTheme: CardTheme(
     cardTheme: CardThemeData(
       elevation: 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -75,7 +73,6 @@ class AppTheme {
       backgroundColor: AppColors.backgroundDark,
       foregroundColor: AppColors.textPrimaryDark,
     ),
-    cardTheme: CardTheme(
     cardTheme: CardThemeData(
       elevation: 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),

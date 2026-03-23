@@ -1,18 +1,17 @@
 class AIEngine {
-  // Returns a recommended soundscape mix based on mood, task, and energy
+  // Soundscape recommendation
   static Map<String, double> recommendSoundscape({
     required String mood,
     required String taskType,
     required int energyLevel,
   }) {
-    // Default volumes all off
     double rain = 0.0;
     double lofi = 0.0;
     double whiteNoise = 0.0;
     double cafe = 0.0;
     double nature = 0.0;
 
-    // Mood-based rules
+    // Mood-based
     switch (mood) {
       case 'Focused':
         whiteNoise = 0.4;
@@ -68,8 +67,6 @@ class AIEngine {
     }
 
     // Energy-based adjustments
-    // Low energy (1-2): boost calm sounds
-    // High energy (4-5): boost stimulating sounds
     if (energyLevel <= 2) {
       rain = (rain + 0.1).clamp(0.0, 1.0);
       lofi = (lofi + 0.1).clamp(0.0, 1.0);
@@ -89,7 +86,7 @@ class AIEngine {
     };
   }
 
-  // Returns a human-readable explanation of the suggestion
+  // Explanation
   static String explainSuggestion({
     required String mood,
     required String taskType,
@@ -126,8 +123,7 @@ class AIEngine {
     return 'Suggested based on: ${reasons.join(', ')}.';
   }
 
- 
-  // Returns a recommended session duration based on energy level
+  // Duration recommendation
   static int recommendDuration(int energyLevel) {
     if (energyLevel <= 2) return 15;
     if (energyLevel == 3) return 25;
@@ -136,13 +132,6 @@ class AIEngine {
 
   // Break duration recommendation
   static int recommendBreakDuration(int completedPomodoros) {
-    if (completedPomodoros > 0 && completedPomodoros % 4 == 0) return 15;
-    return 5;
-  }
-}
-  // Returns a recommended break duration based on completed pomodoros
-  static int recommendBreakDuration(int completedPomodoros) {
-    // Every 4 pomodoros suggest a long break
     if (completedPomodoros > 0 && completedPomodoros % 4 == 0) return 15;
     return 5;
   }

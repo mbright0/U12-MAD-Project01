@@ -63,7 +63,9 @@ class AISuggestionBanner extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             explanation,
-            style: theme.textTheme.bodyMedium,
+            style: theme.textTheme.bodyMedium?.copyWith(
+              color: theme.colorScheme.onPrimaryContainer,
+            ),
           ),
           const SizedBox(height: 12),
           Wrap(
@@ -74,7 +76,10 @@ class AISuggestionBanner extends StatelessWidget {
                 .map((e) => Chip(
                       label: Text(
                         '${_labelFor(e.key)} ${(e.value * 100).toInt()}%',
-                        style: const TextStyle(fontSize: 12),
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: theme.colorScheme.onSurface,
+                        ),
                       ),
                       padding: EdgeInsets.zero,
                       visualDensity: VisualDensity.compact,
@@ -86,17 +91,17 @@ class AISuggestionBanner extends StatelessWidget {
             'Recommended session length: $recommendedDuration min',
             style: theme.textTheme.bodyMedium?.copyWith(
               fontStyle: FontStyle.italic,
+              color: theme.colorScheme.onPrimaryContainer,
             ),
           ),
           const SizedBox(height: 12),
           if (onApply != null)
             SizedBox(
               width: double.infinity,
-              child: OutlinedButton.icon(
+              child: FilledButton(
                 onPressed: onApply,
-                icon: const Icon(Icons.check_rounded),
-                label: const Text('Apply This Mix'),
-              ),
+	        child: const Text('Apply Mix'),
+	      ),
             ),
         ],
       ),
