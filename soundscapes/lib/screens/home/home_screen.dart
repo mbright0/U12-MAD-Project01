@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../../providers/session_provider.dart';
 import '../../core/constants/app_strings.dart';
 import '../session/session_setup_screen.dart';
+import '../session/session_screen.dart';
 import '../history/history_screen.dart';
 import '../settings/settings_screen.dart';
 import '../../widgets/session_card.dart';
@@ -112,7 +113,14 @@ class HomeTab extends StatelessWidget {
               // Active session or start button
               if (sessionProvider.isActive)
                 SessionCard(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const SessionScreen(),
+                      ),
+                    );
+                  },
                 )
               else
                 _StartSessionCard(),
