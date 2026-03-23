@@ -78,6 +78,8 @@ class DatabaseHelper {
   }
 
   // Sessions
+  // ── Sessions ──────────────────────────────────────────────
+
   Future<int> insertSession(Session session) async {
     final db = await database;
     return await db.insert('sessions', session.toMap());
@@ -106,6 +108,7 @@ class DatabaseHelper {
   }
 
   // Blueprints
+
   Future<int> insertBlueprint(Blueprint blueprint) async {
     final db = await database;
     return await db.insert('blueprints', blueprint.toMap());
@@ -150,6 +153,7 @@ class DatabaseHelper {
   }
 
   // Distraction Logs
+
   Future<int> insertDistractionLog(DistractionLog log) async {
     final db = await database;
     return await db.insert('distraction_logs', log.toMap());
@@ -166,8 +170,11 @@ class DatabaseHelper {
     return result.map((map) => DistractionLog.fromMap(map)).toList();
   }
 
+  // Close 
+
   Future close() async {
     final db = await database;
     db.close();
   }
+}
 }
