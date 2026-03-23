@@ -77,6 +77,7 @@ class DatabaseHelper {
     ''');
   }
 
+  // Sessions
   // ── Sessions ──────────────────────────────────────────────
 
   Future<int> insertSession(Session session) async {
@@ -106,7 +107,7 @@ class DatabaseHelper {
     return await db.delete('sessions', where: 'id = ?', whereArgs: [id]);
   }
 
-  // ── Blueprints ────────────────────────────────────────────
+  // Blueprints
 
   Future<int> insertBlueprint(Blueprint blueprint) async {
     final db = await database;
@@ -124,8 +125,7 @@ class DatabaseHelper {
     return await db.delete('blueprints', where: 'id = ?', whereArgs: [id]);
   }
 
-  // ── Audio Presets ─────────────────────────────────────────
-
+  // Audio Presets
   Future<int> insertAudioPreset(AudioPreset preset) async {
     final db = await database;
     return await db.insert('audio_presets', preset.toMap());
@@ -152,7 +152,7 @@ class DatabaseHelper {
     return await db.delete('audio_presets', where: 'id = ?', whereArgs: [id]);
   }
 
-  // ── Distraction Logs ──────────────────────────────────────
+  // Distraction Logs
 
   Future<int> insertDistractionLog(DistractionLog log) async {
     final db = await database;
@@ -170,10 +170,11 @@ class DatabaseHelper {
     return result.map((map) => DistractionLog.fromMap(map)).toList();
   }
 
-  // ── Close ─────────────────────────────────────────────────
+  // Close 
 
   Future close() async {
     final db = await database;
     db.close();
   }
+}
 }

@@ -126,6 +126,7 @@ class AIEngine {
     return 'Suggested based on: ${reasons.join(', ')}.';
   }
 
+ 
   // Returns a recommended session duration based on energy level
   static int recommendDuration(int energyLevel) {
     if (energyLevel <= 2) return 15;
@@ -133,6 +134,12 @@ class AIEngine {
     return 35;
   }
 
+  // Break duration recommendation
+  static int recommendBreakDuration(int completedPomodoros) {
+    if (completedPomodoros > 0 && completedPomodoros % 4 == 0) return 15;
+    return 5;
+  }
+}
   // Returns a recommended break duration based on completed pomodoros
   static int recommendBreakDuration(int completedPomodoros) {
     // Every 4 pomodoros suggest a long break
