@@ -43,7 +43,6 @@ class AISuggestionBanner extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Header
           Row(
             children: [
               Icon(
@@ -62,15 +61,11 @@ class AISuggestionBanner extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 8),
-
-          // Explanation
           Text(
             explanation,
             style: theme.textTheme.bodyMedium,
           ),
           const SizedBox(height: 12),
-
-          // Suggested mix preview
           Wrap(
             spacing: 8,
             runSpacing: 4,
@@ -87,8 +82,6 @@ class AISuggestionBanner extends StatelessWidget {
                 .toList(),
           ),
           const SizedBox(height: 8),
-
-          // Recommended duration
           Text(
             'Recommended session length: $recommendedDuration min',
             style: theme.textTheme.bodyMedium?.copyWith(
@@ -96,8 +89,6 @@ class AISuggestionBanner extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 12),
-
-          // Apply button
           if (onApply != null)
             SizedBox(
               width: double.infinity,
